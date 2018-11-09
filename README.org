@@ -1,0 +1,41 @@
+#+TITLE:         Blocks World
+
+* Introduction
+A Blocks World application in the style of SHRDLU. [[https://hci.stanford.edu/winograd/shrdlu/][See for more...]]
+
+* Design
+** Grammar
+   The following grammar is used to parse input:
+   S -> Command | Question
+   Command -> Action Object (Command)
+   Question -> AV Object MV (Object) "?"
+   Object -> (DA) (Adjective) Shape
+   Action -> "pick up" | "move" | "put down" | "put" | "drop" | "on"
+   AV -> "what is" | "can" | "which"
+   MV -> "supported by" | "support" | "is sitting on" | "is"
+   Adjective -> "red" | "green" | "blue"
+   DA -> "a" | "the"
+   Shape -> "block" | "pyramid" | "it"
+
+** Parser
+   Input is parsed using the specified grammar and a recursive descent parser. The parser turns input into BlockAction objects which handle semantic evaluation and actual execution.
+
+**  BlockActions
+   BlockActions have two types: QuestionActions and CommandActions
+
+*** CommandActions
+    Have knowledge of object type and classes of command. Valid object types are Blocks and Pyramids with an optional specified color of red, green, or blue. Valid commands are to pick up or put down.
+
+*** QuestionActions
+    Have knowledge of object types and types of questions. Valid objects are same as for CommandActions, and valid questions are those concerning if an object of one type can sit on another, and what some object is sitting on.
+    
+*** Blocks World Representation
+    TODO
+
+* Usage
+** Building
+   Required java 8+. Use maven to build.
+   TODO: More detailed instructions.
+
+** Running
+   TODO
