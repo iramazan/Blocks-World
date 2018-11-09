@@ -11,6 +11,7 @@ public class Main {
         for (;;) {
             String input = scanner.nextLine();
             Optional<BlockAction> action = parser.parse(input);
+            action.ifPresent(BlockAction::execute);
         }
     }
 }

@@ -1,5 +1,7 @@
 package csc366;
 
+import csc366.world.Shape;
+
 import java.util.ArrayDeque;
 import java.util.Optional;
 
@@ -28,6 +30,11 @@ public class Parser {
         RED, GREEN, BLUE, A, THE, BLOCK, PYRAMID, IT, QUESTION_MARK
     }
 
+    /**
+     * Parse input line into symbols, and hand over to initial production S for recursive parse.
+     * @param lineStr Input line
+     * @return Optional containing block action representing the input or nothing
+     */
     public Optional<BlockAction> parse(String lineStr) {
         String[] tokens = lineStr.strip().split(" ");
         ArrayDeque<Symbol> lineList = new ArrayDeque<>();
@@ -198,8 +205,8 @@ public class Parser {
      * @return ObjectNode representing the object specified by the user
      */
     private ObjectNode object() {
-        Optional<ObjectNode.Color> color = Optional.empty();
-        ObjectNode.Shape shape;
+        Optional<Shape.Color> color = Optional.empty();
+        Shape.Type shape;
         if (symbolIsDA()) {
             da();
         }
@@ -277,13 +284,13 @@ public class Parser {
      * Adjective -> "red" | "green" | "blue"
      * @return The specified color of the object
      */
-    private ObjectNode.Color adjective() {
+    private Shape.Color adjective() {
         if (accept(Symbol.RED)) {
-            return ObjectNode.Color.RED;
+            return Shape.Color.RED;
         } else if (accept(Symbol.BLUE)) {
-            return ObjectNode.Color.BLUE;
+            return Shape.Color.BLUE;
         } else if (accept(Symbol.GREEN)) {
-            return ObjectNode.Color.GREEN;
+            return Shape.Color.GREEN;
         } else {
             printError();
             return null;
@@ -294,13 +301,13 @@ public class Parser {
     * Shape -> "block" | "pyramid" | "it"
     * @return The specified shape of the object
     */
-   private ObjectNode.Shape shape() {
+   private Shape.Type shape() {
        if (accept(Symbol.BLOCK)) {
-           return ObjectNode.Shape.BLOCK;
+           return Shape.Type.BLOCK;
        } else if (accept(Symbol.PYRAMID)) {
-           return ObjectNode.Shape.PYRAMID;
+           return Shape.Type.PYRAMID;
        } else if (accept(Symbol.IT)) {
-           return ObjectNode.Shape.IT;
+           return Shape.Type.IT;
        } else {
            printError();
            return null;

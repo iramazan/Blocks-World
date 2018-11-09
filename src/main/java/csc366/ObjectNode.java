@@ -1,35 +1,30 @@
 package csc366;
 
+import csc366.world.Shape;
+
 public class ObjectNode {
 
-    public enum Shape {
-        BLOCK, PYRAMID, IT
-    }
-    public enum Color {
-        RED, GREEN, BLUE
-    }
-
-    private final Shape shape;
-    private final Color color;
+    private final Shape.Type shape;
+    private final Shape.Color color;
     private final boolean hasColor;
 
-    public ObjectNode(Shape shape, Color color) {
+    public ObjectNode(Shape.Type shape, Shape.Color color) {
         this.shape = shape;
         this.color = color;
         this.hasColor = true;
     }
 
-    public ObjectNode(Shape shape) {
+    public ObjectNode(Shape.Type shape) {
         this.shape = shape;
         this.color = null;
         this.hasColor = false;
     }
 
-    public Shape getShape() {
+    public Shape.Type getShape() {
         return shape;
     }
 
-    public Color getColor() {
+    public Shape.Color getColor() {
         return color;
     }
 
