@@ -1,5 +1,6 @@
 package csc366;
 
+import java.util.ArrayDeque;
 import java.util.Optional;
 
 /**
@@ -25,6 +26,66 @@ public class Parser {
     private enum Symbol {
         PICK_UP, MOVE, PUT_DOWN, PUT, DROP, ON, WHAT_IS, CAN, WHICH, SUPPORTED_BY, SUPPORT, IS_SITTING_ON, IS,
         RED, GREEN, BLUE, A, THE, BLOCK, PYRAMID, IT, QUESTION_MARK
+    }
+
+    public Optional<BlockAction> parse(String lineStr) {
+        String[] tokens = lineStr.strip().split(" ");
+        ArrayDeque<Symbol> lineList = new ArrayDeque<>();
+        // If the last token ends with a question mark, remove it and explicitly insert it into the symbol array
+        String lastToken = tokens[tokens.length-1];
+        if (lastToken.endsWith("?")) {
+            lineList.add(Symbol.QUESTION_MARK);
+            tokens[tokens.length - 1] = lastToken.substring(0, lastToken.length() - 1);
+        }
+        for (int i = tokens.length-1; i >= 0; i--) {
+            String currToken = tokens[i];
+            switch (currToken) {
+                case "up":
+                    if (tokens[i-1].equalsIgnoreCase("pick")) {
+                        lineList.addFirst(Symbol.PICK_UP);
+                        i--;
+                    }
+                case "down":
+                    if (tokens[i-1].equalsIgnoreCase("put")) {
+                        lineList.addFirst(Symbol.PUT_DOWN);
+                        i--;
+                    }
+                case "is":
+                    if (tokens[i-1].equalsIgnoreCase("what")) {
+                        lineList.addFirst(Symbol.WHAT_IS);
+                        i--;
+                    } else {
+                        lineList.addFirst(Symbol.IS);
+                    }
+                case "by":
+                    if (tokens[i-1].equalsIgnoreCase("supported")) {
+                        lineList.addFirst(Symbol.SUPPORTED_BY);
+                        i--;
+                    }
+                case "on":
+                    if (tokens[i-1].equalsIgnoreCase("sitting")
+                            && tokens[i-2].equalsIgnoreCase("is")) {
+                        lineList.addFirst(Symbol.IS_SITTING_ON);
+                        i -= 2;
+                    }
+                default:
+                    try {
+                        lineList.addFirst(Symbol.valueOf(currToken.toUpperCase()));
+                    } catch (IllegalArgumentException e) {
+                        // symbol does not exist
+                        printError();
+                        return Optional.empty();
+                    }
+            }
+        }
+        // init class variables for this parse
+        line = new Symbol[lineList.size()];
+        lineList.toArray(line);
+        linePtr = 0;
+        isErrorPrinted = false;
+        // perform actual parse
+        BlockAction action = s();
+        return isErrorPrinted ? Optional.of(action) : Optional.empty();
     }
 
     /**
