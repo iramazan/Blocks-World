@@ -1,22 +1,28 @@
 package csc366.world;
 
+import java.util.Optional;
+
 public class Pyramid extends Shape{
 
     private final Type type;
-    private final Shape shape;
+    private final Color color;
     private Shape supportedBy;
+    private Shape behind;
+    private Shape inFront;
+    private Shape left;
+    private Shape right;
 
-    public Pyramid(Type type, Shape shape) {
-        this.type = type;
-        this.shape = shape;
+    public Pyramid(Color color) {
+        this.color = color;
+        this.type = Type.PYRAMID;
     }
 
     public Type getType() {
         return type;
     }
 
-    public Shape getShape() {
-        return shape;
+    public Color getColor() {
+        return color;
     }
 
     public Shape getSupportedBy() {
@@ -27,25 +33,54 @@ public class Pyramid extends Shape{
         this.supportedBy = supportedBy;
     }
 
-    /**
-     * Returns true if this shape can support the specified block.
-     *
-     * @param block block object to query with
-     * @return True if the shape can support the block
-     */
     @Override
-    public boolean canSupport(Block block) {
-        return false;
+    public Optional<Shape> getBehind() {
+        return Optional.ofNullable(behind);
+    }
+
+    @Override
+    public Optional<Shape> getInFront() {
+        return Optional.ofNullable(inFront);
+    }
+
+    @Override
+    public Optional<Shape> getRight() {
+        return Optional.ofNullable(right);
+    }
+
+    @Override
+    public Optional<Shape> getLeft() {
+        return Optional.ofNullable(left);
+    }
+
+    @Override
+    public void setBehind(Shape shape) {
+        this.behind = shape;
+    }
+
+    @Override
+    public void setInFront(Shape shape) {
+        this.inFront = shape;
+    }
+
+    @Override
+    public void setLeft(Shape shape) {
+        this.left = shape;
+    }
+
+    @Override
+    public void setRight(Shape shape) {
+        this.right = shape;
     }
 
     /**
-     * Returns true if this shape can support the specified pyramid.
+     * Returns true if this shape can support a shape.
      *
-     * @param pyramid pyramid object to query with
-     * @return True if the shape can support the pyramid
+     * @return True if the shape can support another shape
      */
     @Override
-    public boolean canSupport(Pyramid pyramid) {
+    public boolean canSupport() {
         return false;
     }
+
 }

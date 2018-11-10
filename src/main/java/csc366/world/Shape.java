@@ -1,5 +1,7 @@
 package csc366.world;
 
+import java.util.Optional;
+
 public abstract class Shape {
 
     public enum Type {
@@ -9,18 +11,22 @@ public abstract class Shape {
         RED, GREEN, BLUE
     }
 
-    /**
-     * Returns true if this shape can support the specified block.
-     * @param block block object to query with
-     * @return True if the shape can support the block
-     */
-    public abstract boolean canSupport(Block block);
+    public abstract boolean canSupport();
 
-    /**
-     * Returns true if this shape can support the specified pyramid.
-     * @param pyramid pyramid object to query with
-     * @return True if the shape can support the pyramid
-     */
-    public abstract boolean canSupport(Pyramid pyramid);
+    public abstract Optional<Shape> getBehind();
+
+    public abstract Optional<Shape> getInFront();
+
+    public abstract Optional<Shape> getRight();
+
+    public abstract Optional<Shape> getLeft();
+
+    public abstract void setBehind(Shape shape);
+
+    public abstract void setInFront(Shape shape);
+
+    public abstract void setLeft(Shape shape);
+
+    public abstract void setRight(Shape shape);
 
 }
