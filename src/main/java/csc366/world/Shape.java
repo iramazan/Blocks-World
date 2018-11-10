@@ -11,7 +11,11 @@ public abstract class Shape {
         RED, GREEN, BLUE
     }
 
-    public abstract boolean canSupport();
+    public abstract Supporter getSupportedBy();
+
+    public abstract void setSupportedBy(Supporter supportedBy);
+
+    public abstract Type getType();
 
     public abstract Optional<Shape> getBehind();
 

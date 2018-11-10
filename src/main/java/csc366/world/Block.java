@@ -2,11 +2,11 @@ package csc366.world;
 
 import java.util.Optional;
 
-public class Block extends Shape {
+public class Block extends Shape implements Supporter {
 
     private final Type type;
     private final Color color;
-    private Shape supportedBy;
+    private Supporter supportedBy;
     private Shape supporting;
     private Shape behind;
     private Shape inFront;
@@ -26,20 +26,21 @@ public class Block extends Shape {
         return color;
     }
 
-    public Shape getSupportedBy() {
+    public Supporter getSupportedBy() {
         return supportedBy;
     }
 
-    public void setSupportedBy(Shape supportedBy) {
+    public void setSupportedBy(Supporter supportedBy) {
         this.supportedBy = supportedBy;
     }
 
-    public Shape getSupporting() {
-        return supporting;
+    public Optional<Shape> getSupporting() {
+        return Optional.of(supporting);
     }
 
-    public void setSupporting(Shape supporting) {
-        this.supporting = supporting;
+    @Override
+    public void setSupporting(Shape shape) {
+        this.supporting = shape;
     }
 
     /**
@@ -47,7 +48,6 @@ public class Block extends Shape {
      *
      * @return True if the shape can support another shape
      */
-    @Override
     public boolean canSupport() {
         return true;
     }

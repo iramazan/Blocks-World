@@ -2,11 +2,11 @@ package csc366.world;
 
 import java.util.Optional;
 
-public class Pyramid extends Shape{
+public class Pyramid extends Shape {
 
     private final Type type;
     private final Color color;
-    private Shape supportedBy;
+    private Supporter supportedBy;
     private Shape behind;
     private Shape inFront;
     private Shape left;
@@ -25,12 +25,16 @@ public class Pyramid extends Shape{
         return color;
     }
 
-    public Shape getSupportedBy() {
+    public Supporter getSupportedBy() {
         return supportedBy;
     }
 
-    public void setSupportedBy(Shape supportedBy) {
+    public void setSupportedBy(Supporter supportedBy) {
         this.supportedBy = supportedBy;
+    }
+
+    public boolean canSupport() {
+        return false;
     }
 
     @Override
@@ -72,15 +76,4 @@ public class Pyramid extends Shape{
     public void setRight(Shape shape) {
         this.right = shape;
     }
-
-    /**
-     * Returns true if this shape can support a shape.
-     *
-     * @return True if the shape can support another shape
-     */
-    @Override
-    public boolean canSupport() {
-        return false;
-    }
-
 }

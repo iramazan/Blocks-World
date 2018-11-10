@@ -14,5 +14,21 @@ public class World {
         Pyramid greenPyramid = new Pyramid(Shape.Color.GREEN);
         table = new Table();
         // establish object spatial relationships
+        on(redBlock, table);
+        on(greenPyramid, redBlock);
+        on(greenBlock, table);
+        on(blueBlock, greenBlock);
+        on(redPyramid, table);
+        on(bluePyramid, table);
+    }
+
+    /**
+     * Establish the relationship shape on support
+     * @param shape Shape which will be on top of some support
+     * @param support support which will be supporting the object
+     */
+    public void on(Shape shape, Supporter support) {
+        shape.setSupportedBy(support);
+        support.setSupporting(shape);
     }
 }
