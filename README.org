@@ -31,8 +31,17 @@ A Blocks World application in the style of SHRDLU. [[https://hci.stanford.edu/wi
 *** QuestionActions
     Have knowledge of object types and types of questions. Valid objects are same as for CommandActions, and valid questions are those concerning if an object of one type can sit on another, and what some object is sitting on.
     
-*** Blocks World Representation
-    TODO
+** Blocks World Representation
+   In general, relationships between objects in the scene are recorded by the obects themselves. Every object knows what it's immediate neighbors are, and from this information we can build the entire scene.
+   
+*** World.java
+    The top level for the blocks world representation is the World class. This contains all the operators for establishing relationships between entities in the world (on, behind, beside). The world class also acts as the interface between other components of the application and the blocks world representation. This also contains references to all shapes in the scene.
+    
+*** Table
+    The table is the base object which is supporting all shapes which are not supported by another shape.
+    
+*** Shape
+    Shapes come in two variants; Blocks and Pyramids. A Block can support another shape, but a pyramid cannot.
 
 * Usage
 ** Building
