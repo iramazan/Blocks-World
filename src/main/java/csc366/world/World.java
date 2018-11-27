@@ -121,6 +121,11 @@ public class World {
         // If type is block, there is no top block
     }
 
+    /**
+     * Put the held object on top of a specified object.
+     * @param type Type of the supporting object
+     * @param color Color of the supporting object
+     */
     public void dropObject(Shape.Type type, Shape.Color color) {
         if (this.lifted == null || !type.equals(Shape.Type.BLOCK)) {
             return;
@@ -130,5 +135,45 @@ public class World {
                 on(lifted, block);
             }
         }
+    }
+
+    /**
+     * Get the shape which is supporting the specified shape.
+     * @param type Type of the specified shape
+     * @param color Color of the specified shape
+     * @return Optional containing the supporting shape or nothing
+     */
+    public Optional<Supporter> whatIsSupporting(Shape.Type type, Shape.Color color) {
+        if (type.equals(Shape.Type.BLOCK)) {
+            for (Block block : blocks) {
+                if (block.getColor().equals(color)) {
+                    return Optional.of(block.getSupportedBy());
+                }
+            }
+        } else if (type.equals(Shape.Type.PYRAMID)) {
+            for (Pyramid pyramid : pyramids) {
+                if (pyramid.getColor().equals(color)) {
+                    return Optional.of(pyramid.getSupportedBy());
+                }
+            }
+        }
+        return Optional.empty();
+    }
+
+    /**
+     * Get the shape which is supporting the specified shape.
+     * @param type Type of the specified shape
+     * @param color Color of the specified shape
+     * @return Optional containing the supporting shape or nothing
+     */
+    public Optional<Shape> whatIsSupportedBy(Shape.Type type, Shape.Color color) {
+        if (type.equals(Shape.Type.BLOCK)) {
+            for (Block block : blocks) {
+                if (block.getColor().equals(color)) {
+                    return block.getSupporting();
+                }
+            }
+        }
+        return Optional.empty();
     }
 }

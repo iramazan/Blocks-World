@@ -1,6 +1,10 @@
 package csc366;
 
+import csc366.world.Shape;
+import csc366.world.Supporter;
 import csc366.world.World;
+
+import java.util.Optional;
 
 public class QuestionAction extends BlockAction {
 
@@ -39,5 +43,16 @@ public class QuestionAction extends BlockAction {
      * @param world The world representation to operate on
      */
     public void execute(World world) {
+        if (av.equals(AV.WHAT_IS) && mv.equals(MV.SUPPORTED_BY) && object1.hasColor()) {
+            Optional<Supporter> support = world.whatIsSupporting(object1.getShape(), object1.getColor());
+            support.ifPresentOrElse(Supporter::print, () -> System.out.println("I don't understand."));
+        } else if (av.equals(AV.CAN) && mv.equals(MV.SUPPORT)) {
+            String answer = object1.getShape().equals(Shape.Type.BLOCK) ? "Yes." : "No.";
+            System.out.println("Answer");
+        } else if (av.equals(AV.WHICH) && mv.equals(MV.IS_SITTING_ON)) {
+            // TODO: Handle this case
+        } else {
+            System.out.println("I don't understand.");
+        }
     }
 }
