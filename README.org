@@ -45,7 +45,7 @@ A Blocks World application in the style of SHRDLU. [[https://hci.stanford.edu/wi
 
 * Usage
 ** Building
-   Required java 8+. Use maven to build.
+   Required java 11+. Use maven to build.
    TODO: More detailed instructions.
 
 ** Running
