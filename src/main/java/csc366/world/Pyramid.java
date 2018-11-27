@@ -33,6 +33,11 @@ public class Pyramid extends Shape {
         this.supportedBy = supportedBy;
     }
 
+    @Override
+    public boolean isSupporting() {
+        return false;
+    }
+
     public boolean canSupport() {
         return false;
     }
@@ -75,5 +80,16 @@ public class Pyramid extends Shape {
     @Override
     public void setRight(Shape shape) {
         this.right = shape;
+    }
+
+    @Override
+    public void removeRelations() {
+        getLeft().ifPresent(l -> l.setRight(right));
+        getRight().ifPresent(r -> r.setLeft(left));
+        getBehind().ifPresent(b -> b.setInFront(inFront));
+        getInFront().ifPresent(f -> f.setBehind(behind));
+        supportedBy.setSupporting(null);
+        supportedBy = null;
+        left = right = inFront = behind = null;
     }
 }

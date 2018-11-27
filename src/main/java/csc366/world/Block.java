@@ -34,6 +34,11 @@ public class Block extends Shape implements Supporter {
         this.supportedBy = supportedBy;
     }
 
+    @Override
+    public boolean isSupporting() {
+        return supporting != null;
+    }
+
     public Optional<Shape> getSupporting() {
         return Optional.of(supporting);
     }
@@ -90,5 +95,19 @@ public class Block extends Shape implements Supporter {
     @Override
     public void setRight(Shape shape) {
         this.right = shape;
+    }
+
+    @Override
+    public void removeRelations() {
+        getLeft().ifPresent(l -> l.setRight(right));
+        getRight().ifPresent(r -> r.setLeft(left));
+        getBehind().ifPresent(b -> b.setInFront(inFront));
+        getInFront().ifPresent(f -> f.setBehind(behind));
+        getSupporting().ifPresent(s -> {
+            s.setSupportedBy(supportedBy);
+            supportedBy.setSupporting(s);
+        });
+        supportedBy = null;
+        supporting = left = right = inFront = behind = null;
     }
 }

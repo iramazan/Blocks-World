@@ -1,5 +1,7 @@
 package csc366;
 
+import csc366.world.World;
+
 public class QuestionAction extends BlockAction {
 
     public enum AV {
@@ -34,7 +36,8 @@ public class QuestionAction extends BlockAction {
 
     /**
      * Execute the action represented by this object.
+     * @param world The world representation to operate on
      */
-    public void execute() {
+    public void execute(World world) {
     }
 }

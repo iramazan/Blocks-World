@@ -1,5 +1,7 @@
 package csc366;
 
+import csc366.world.World;
+
 public class CommandAction extends BlockAction {
 
     public enum Action {
@@ -26,8 +28,23 @@ public class CommandAction extends BlockAction {
 
     /**
      * Execute the action represented by this object.
+     * @param world The world representation to operate on
      */
-    public void execute() {
-
+    public void execute(World world) {
+        if (action.equals(Action.PICK_UP)) {
+            if (object.hasColor()) {
+                world.liftObject(object.getShape(), object.getColor());
+            } else {
+                world.liftObject(object.getShape());
+            }
+        } else {
+            if (object.hasColor()) {
+                world.dropObject(object.getShape(), object.getColor());
+            }
+            // TODO: Do we allow to place shape on an arbitrary block? No for now.
+        }
+        if (hasCommand) {
+            command.execute(world);
+        }
     }
 }

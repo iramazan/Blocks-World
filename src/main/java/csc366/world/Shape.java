@@ -15,6 +15,8 @@ public abstract class Shape {
 
     public abstract void setSupportedBy(Supporter supportedBy);
 
+    public abstract boolean isSupporting();
+
     public abstract Type getType();
 
     public abstract Optional<Shape> getBehind();
@@ -32,5 +34,7 @@ public abstract class Shape {
     public abstract void setLeft(Shape shape);
 
     public abstract void setRight(Shape shape);
+
+    public abstract void removeRelations();
 
 }
