@@ -48,6 +48,11 @@ public class Block extends Shape implements Supporter {
         this.supporting = shape;
     }
 
+    @Override
+    public void print() {
+        System.out.println("The " + color.toString() + " Block.");
+    }
+
     /**
      * Returns true if this shape can support a shape.
      *

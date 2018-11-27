@@ -21,4 +21,9 @@ public class Table implements Supporter {
             blocks.add((Block) shape);
         }
     }
+
+    @Override
+    public void print() {
+        System.out.println("The Table.");
+    }
 }
