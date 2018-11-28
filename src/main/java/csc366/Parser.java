@@ -52,11 +52,13 @@ public class Parser {
                         lineList.addFirst(Symbol.PICK_UP);
                         i--;
                     }
+                    break;
                 case "down":
                     if (tokens[i-1].equalsIgnoreCase("put")) {
                         lineList.addFirst(Symbol.PUT_DOWN);
                         i--;
                     }
+                    break;
                 case "is":
                     if (tokens[i-1].equalsIgnoreCase("what")) {
                         lineList.addFirst(Symbol.WHAT_IS);
@@ -64,17 +66,20 @@ public class Parser {
                     } else {
                         lineList.addFirst(Symbol.IS);
                     }
+                    break;
                 case "by":
                     if (tokens[i-1].equalsIgnoreCase("supported")) {
                         lineList.addFirst(Symbol.SUPPORTED_BY);
                         i--;
                     }
+                    break;
                 case "on":
                     if (tokens[i-1].equalsIgnoreCase("sitting")
                             && tokens[i-2].equalsIgnoreCase("is")) {
                         lineList.addFirst(Symbol.IS_SITTING_ON);
                         i -= 2;
                     }
+                    break;
                 default:
                     try {
                         lineList.addFirst(Symbol.valueOf(currToken.toUpperCase()));
@@ -91,6 +96,7 @@ public class Parser {
         linePtr = 0;
         isErrorPrinted = false;
         // perform actual parse
+        nextSymbol();
         BlockAction action = s();
         return !isErrorPrinted ? Optional.of(action) : Optional.empty();
     }
@@ -264,10 +270,12 @@ public class Parser {
      * @return Main Verb from the input
      */
     private QuestionAction.MV mv() {
+        /*
         if (!(accept(Symbol.SUPPORTED_BY) || accept(Symbol.SUPPORT) || accept(Symbol.IS_SITTING_ON) ||
                 accept(Symbol.IS))) {
             printError();
         }
+        */
         if (accept(Symbol.SUPPORTED_BY)) {
             return QuestionAction.MV.SUPPORTED_BY;
         } else if (accept(Symbol.SUPPORT)) {
