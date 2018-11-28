@@ -92,7 +92,7 @@ public class Parser {
         isErrorPrinted = false;
         // perform actual parse
         BlockAction action = s();
-        return isErrorPrinted ? Optional.of(action) : Optional.empty();
+        return !isErrorPrinted ? Optional.of(action) : Optional.empty();
     }
 
     /**
